@@ -6,7 +6,7 @@ const paragraphes = {
     description : 'Ce projet est un projet de test pour générer l\'ensemble des pages et des élements du DOM depuis les scripts Js. Il a également pour finalité de développer l\'ensemble des fonctionnalités du site tout en allant vers toujours plus de complexité opérationelle avec pour objectif d\'explorer et d\'approffondir la pratique de la programmation en Javascript en utilisant au maximum les connaissances actuelles. Un accent est porté à la simplification et factorisation du code et à sa maintenabilité.',
 }
 const labels = ['Votre prénom','Votre nom','Votre adresse mail','Votre message'];
-const buttonContent = ['Filtrer','Ordonner', 'Style', 'Palette']
+const buttonContent = ['Filtrer','Ordonner', 'Style', 'Palette','Rafraichir']
 
 function Projets(name, type,techno, deadline, status,todo,link) {
   this.projectTitle = name;

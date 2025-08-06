@@ -112,10 +112,7 @@ section {
 .card p {
     padding: 0;
 }
-/* .status {
-    color:rgb(4, 153, 12);
-    font-weight: bold;
-} */
+
 /* contact */
 .hero-contact {
     display: flex;
@@ -154,7 +151,20 @@ textarea{
 }
 .cmd {
     padding: 10px 20px;
-    /* background-color: transparent;
-    border: 1px solid #131337;
-    border-radius: 6px; */
+}
+.dial {
+    margin-left: 24vw;
+    
+    border: none;
+}
+select {
+    padding: 10px 20px;
+}
+option:first-of-type {
+    font-style: italic;
+}
+.close {
+    position: relative;
+    top:40px;
+    right:40px;
 }

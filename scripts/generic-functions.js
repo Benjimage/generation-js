@@ -20,6 +20,62 @@ function addFormElement(label, text, element, attribut,value,classe,selector) {
     document.querySelector(selector).appendChild(newlabel)
     document.querySelector(selector).appendChild(newElement)
 }
+function generateCard(arr) {
+    const sectionCard = document.querySelector('.hero-card');
+
+    for(let i = 0; i < arr.length; i++) {
+   
+    const projet  = arr[i];
+   
+    const cardLink = document.createElement('a')
+    cardLink.setAttribute('href',`/pages${arr[i].anchorLink}`)
+    cardLink.classList.add('card-link')
+
+    const card = document.createElement('article')
+    card.classList.add('card')
+
+    const cardTitle = document.createElement('h2');
+    cardTitle.innerText = projet.projectTitle;
+    const typeOfproject = document.createElement('h3');
+    typeOfproject.innerText = projet.projectType
+
+    const techTitle = document.createElement('h4');
+    techTitle.innerText = 'Technologies :'
+    const listNest = document.createElement('ul');
+    listNest.classList.add('card-ul')
+
+    const technoList = arr[i].projectTechnology
+
+    for(let l = 0; l < technoList.length; l++) {
+        let liItem = document.createElement('li')
+        listNest.appendChild(liItem);
+        liItem.innerText = arr[i].projectTechnology[l];
+        } 
+    const deadlineDisplay = document.createElement('p');  
+    deadlineDisplay.innerText =` Date limite : ${arr[i].projectDeadline}`;
+    const Status = document.createElement('p');
+    Status.innerHTML = `Statut : <span class="status">${arr[i].projectStatus}</span>`
+    
+    sectionCard.appendChild(cardLink);
+    cardLink.appendChild(card)
+    card.appendChild(cardTitle);
+    card.appendChild(typeOfproject);
+    card.appendChild(techTitle);
+    card.appendChild(listNest);
+    card.appendChild(deadlineDisplay);
+    card.appendChild(Status);
+    }
+}
+function fiterByTheme(theme){
+    console.log(`bouton ${btnFcts[0]} fonctionnel`);
+    const projectByType = projets.filter(function (projet) {
+        return projet.projectType === theme;
+        });
+        console.log(projectByType)
+        const sectionCard = document.querySelector('.hero-card');
+        sectionCard.innerHTML= "";
+        generateCard(projectByType)
+}
 function displayDate(){
     const dateOfToday = qS('.date')
     let today = new Date();

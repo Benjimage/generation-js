@@ -468,3 +468,13 @@ function generateCard() {
     card.appendChild(Status);
     }
 }
+function fliterProject() {
+    const typeOfProject = []
+    for(projet of projets) {
+        typeOfProject.push(projet.projectType)
+    }
+    console.log(typeOfProject);
+    const web = qS('option:first-of-type')
+    web.addEventListener('click', () => {fiterByTheme('développement web')})
+    console.log(web)
+}

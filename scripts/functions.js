@@ -23,14 +23,28 @@ function generateButtons() {
     const btnOrder = qS(`.${btnFcts[1]}`)
     const btnStyle = qS(`.${btnFcts[2]}`)
     const btnPalette = qS(`.${btnFcts[3]}`)
+    const refresh = qS(`.${btnFcts[4]}`)
 
-    btnFilter.addEventListener('click', fiterByTheme);
+    btnFilter.addEventListener('click', () => {
+        createDial();
+        const dial = qS('dialog');
+        console.log(dial);
+    });
     btnOrder.addEventListener('click', sortByDeadline);
     btnStyle.addEventListener('click', changeStyle);
     btnPalette.addEventListener('click', changePalette);
+    refresh.addEventListener('click', () => {
+        console.log(`bouton ${btnFcts[4]} fonctionnel`);
+        const sectionCard = document.querySelector('.hero-card');
+      /*   if(sectionCard.innerHTML != ""){
+        sectionCard.innerHTML= "";
+        generateCard(projets);
+    } */
+        location.reload();
+    })
    
 }
-function generateCard(arr) {
+/* function generateCard(arr) {
     const sectionCard = document.querySelector('.hero-card');
 
     for(let i = 0; i < arr.length; i++) {
@@ -75,21 +89,42 @@ function generateCard(arr) {
     card.appendChild(deadlineDisplay);
     card.appendChild(Status);
     }
-}
+} */
 
 /*  */
 const btnFcts = buttonContent.map(toLow);
 /*  */
-function fiterByTheme(){
+/* function fiterByTheme(theme){
     console.log(`bouton ${btnFcts[0]} fonctionnel`);
     const projectByType = projets.filter(function (projet) {
-        return projet.projectType === 'Édition';
-    });
-    console.log(projectByType)
-    const sectionCard = document.querySelector('.hero-card');
-    sectionCard.innerHTML= "";
-    generateCard(projectByType)
+        return projet.projectType === theme;
+        });
+        console.log(projectByType)
+        const sectionCard = document.querySelector('.hero-card');
+        sectionCard.innerHTML= "";
+        generateCard(projectByType)
+} */
+function createDial() {
+    console.log(`bouton ${btnFcts[0]} fonctionnel`);
+
+    addElement('dialog', null,'dial', 'footer')
+    const dial = qS('dialog');
+    dial.innerHTML = `
+    <select name="filter" id="type">
+    <option value="dev-web">Développement web</option>
+    <option value="wordpress">Développement WordPress</option>
+    <option value="edition">Édition</option>
+    </select>
+    `;
+    dial.show()
+    const web = qS('option:first-of-type')
+    web.addEventListener('click', () => {fiterByTheme('développement web'); dial.close()})
+    const wP = qS('option:nth-of-type(2)')
+    wP.addEventListener('click', () => {fiterByTheme('développement WordPress'); dial.close()})
+    const edition = qS('option:nth-of-type(3)')
+    edition.addEventListener('click', () => {fiterByTheme('Édition'); dial.close()})
 }
+
 function sortByDeadline(){
     console.log(`bouton ${btnFcts[1]} fonctionnel`)
     let priority = projets.sort(function(a, b){
@@ -104,11 +139,10 @@ function sortByDeadline(){
     sectionCard.innerHTML= "";
     generateCard(priority)
 
-    for(let i = 0; i < priority.length; i++){
+    /* for(let i = 0; i < priority.length; i++){
         console.log(priority[i].projectDeadline)
-    }
-    console.log(priority[0].projectDeadline)
-    //priority[0].style.color = "red"
+    } */
+    /* console.log(priority[0].projectDeadline) */
 }
 function changeStyle(){
     console.log(`bouton ${btnFcts[2]} fonctionnel`)
@@ -154,85 +188,11 @@ function generateContact() {
     addFormElement('label',labels[3], 'textarea', null, null, null, 'form');
     addFormElement(null,null, 'input', 'type', 'submit', null, 'form');
 }
-/* function displayDate(){
-    const dateOfToday = qS('.date')
-    let today = new Date();
-    let month = today.getMonth()
-    let monthName = '';
-    switch(month) {
-            case 0:
-            monthName = 'Janvier';
-            break;
-            case 1:
-            monthName = 'Février';
-            break;
-            case 2:
-            monthName = 'Mars';
-            break;
-            case 3:
-            monthName = 'Avril';
-            break;
-            case 4:
-            monthName = 'Mai';
-            break;
-            case 5:
-            monthName = 'Juin';
-            break;
-            case 6:
-            monthName = 'Juillet';
-            break;
-            case 7:
-            monthName = 'Août';
-            break;
-            case 8:
-            monthName = 'Septembre';
-            break;
-            case 9:
-            monthName = 'Octobre';
-            break;
-            case 10:
-            monthName = 'Novembre';
-            break;
-            case 11:
-            monthName = 'Décembre';
-            break;
-    }
-        
-    const thisDay = `${today.getDate()} ${monthName} ${today.getFullYear()}`
-    switch(today.getDay()){
-        case 0 :
-            dateOfToday.innerText = `Dimanche  ${thisDay}`;
-            break;   
-        case 1 :
-            dateOfToday.innerText = `Lundi ${thisDay}`;
-            break;
-        case 2 :
-            dateOfToday.innerText = `Mardi  ${thisDay}`;
-            break;
-        case 3 :
-            dateOfToday.innerText = `Mercredi  ${thisDay}`;
-            break; 
-        case 4 :
-            dateOfToday.innerText = `Jeudi  ${thisDay}`;
-            break;
-        case 5 :
-            dateOfToday.innerText = `Vendredi  ${thisDay}`;
-            break;
-        case 6 :
-            dateOfToday.innerText = `Samedi  ${thisDay}`;
-            break;
-    }
-    console.log(today.getMonth())
-    console.log(today.getDay())
-    console.log(today.getDate())
-    console.log(today.getFullYear())
-}
- */
-
 function generateFooter() {
     addElement('footer', null, 'footer', 'body');
     if(window.location.pathname === '/projets.html') {
         generateButtons()
+        
     } else {
         addElement('p', '','date', 'footer')
         addElement('p', '','time', 'footer')
